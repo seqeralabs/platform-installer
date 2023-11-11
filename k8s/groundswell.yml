@@ -1,0 +1,92 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: groundswell-cfg
+  namespace: seqera-platform
+  labels:
+    app: groundswell-cfg
+data:
+  SWELL_DB_URL: "mysql://tower.cluster-c1rjv6umdpvw.eu-west-2.rds.amazonaws.com/groundswell"
+  SWELL_DB_USER: "groundswell"
+  SWELL_DB_PASSWORD: "DK26XhLWs3jSXqEsm6tH2PHtSajGMa"
+  SWELL_DB_DIALECT: "mysql"
+---
+# Deployments
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: groundswell
+  namespace: seqera-platform
+  labels:
+    app: groundswell
+spec:
+  selector:
+    matchLabels:
+      app: groundswell
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: groundswell
+    spec:
+      nodeSelector:
+        # this node selector binds the wave app pods to the main cluster node group
+        # the build pods should use a different one
+        service: tower
+      initContainers:
+        - name: migrate-db
+          image: 195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower/groundswell:0.4.0
+          imagePullPolicy: Always
+          command: ['/opt/groundswell/bin/migrate-db.sh']
+          envFrom:
+            - configMapRef:
+                name: groundswell-cfg
+      containers:
+        - name: groundswell
+          image: 195996028523.dkr.ecr.eu-west-1.amazonaws.com/nf-tower/groundswell:0.4.0
+          envFrom:
+            - configMapRef:
+                name: groundswell-cfg
+            - configMapRef:
+                name: tower-backend-cfg
+          ports:
+            - containerPort: 8090
+          resources:
+            requests:
+              memory: "600Mi"
+            limits:
+              memory: "1200Mi"
+#          readinessProbe:
+#            httpGet:
+#              path: /health
+#              port: 8090
+#            initialDelaySeconds: 5
+#            timeoutSeconds: 3
+#          livenessProbe:
+#            httpGet:
+#              path: /health
+#              port: 8090
+#            initialDelaySeconds: 5
+#            timeoutSeconds: 3
+#            failureThreshold: 10
+---
+# Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: groundswell
+  namespace: seqera-platform
+  labels:
+    app: groundswell
+spec:
+  ports:
+    - name: http
+      port: 8090
+      targetPort: 8090
+  selector:
+    app: groundswell
+...

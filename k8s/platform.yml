@@ -1,0 +1,204 @@
+---
+# Deployments
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: "${TOWER_NAMESPACE}"
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      serviceAccountName: seqera-sa
+      imagePullSecrets:
+        - name: reg-creds
+      containers:
+        - name: backend
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.3.0-BETA1
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+          env:
+            - name: MICRONAUT_ENVIRONMENTS
+              value: "prod,redis,ha,openapi"
+          ports:
+            - containerPort: 1099
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1000Mi"
+            limits:
+              memory: "3000Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cron
+  namespace: "${TOWER_NAMESPACE}"
+  labels:
+    app: cron
+spec:
+  selector:
+    matchLabels:
+      app: cron
+  template:
+    metadata:
+      labels:
+        app: cron
+    spec:
+      imagePullSecrets:
+        - name: reg-creds
+      serviceAccountName: seqera-sa
+      initContainers:
+        - name: migrate-db
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.3.0-BETA1
+          imagePullPolicy: Always
+          command: ['sh', '-c', '/migrate-db.sh']
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+      containers:
+        - name: cron
+          image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.3.0-BETA1
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+          env:
+            - name: MICRONAUT_ENVIRONMENTS
+              value: "prod,redis,cron"
+          ports:
+            - containerPort: 1099
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1000Mi"
+            limits:
+              memory: "3000Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: "${TOWER_NAMESPACE}"
+  labels:
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      imagePullSecrets:
+        - name: reg-creds
+      containers:
+        - image: cr.seqera.io/private/nf-tower-enterprise/frontend:v23.3.0-BETA1
+          name: frontend
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+---
+# Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: "${TOWER_NAMESPACE}"
+  labels:
+    app: backend
+spec:
+  ports:
+    - name: jmx
+      port: 1099
+      targetPort: 1099
+    - name: http
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-api
+  namespace: "${TOWER_NAMESPACE}"
+  labels:
+    app: backend
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: "${TOWER_NAMESPACE}"
+  labels:
+    app: frontend
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: NodePort
+  selector:
+    app: "frontend"
+...
