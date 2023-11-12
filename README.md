@@ -232,3 +232,27 @@ Create an *alias record* in your Route53 configuration to associate the Seqera P
 variable `TOWER_DOMAIN_NAME` with the AWS Application load balancer hostname specified by `AWS_ALB_HOSTNAME`.
 
 See [AWS documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-elb-load-balancer.html) for further details.
+
+
+### Uninstallation
+
+To uninstall Seqera Platform deployment, use the following command:
+
+```
+bash uninstall-app.sh
+```
+
+To uninstall the EKS cluster, RDS database and Elasticache instance, use the following command:
+
+```
+terraform destroy
+```
+
+> **Warning**
+> This operation cannot be undone. Make sure to backup the RDS database instance if you want to preserve the data.
+
+Finally delete the S3 bucket used by Terraform using the command below:
+
+```
+bash uninstall-terraform-bucket.sh
+```
