@@ -179,7 +179,7 @@ frontend-845555f54b-ljmzr   1/1     Running     0            20s
 seqera-db-setup-job-k24kb   0/1     Completed   0            11h
 ```
 
-> ***Note***
+> **Note**
 > The pod `seqera-db-setup-job-k24kb` is created during the setup and can be safely deleted.
 
 Once all pod are in `Running` status you can connect to the Seqerea Platform via the using this command:
@@ -196,7 +196,7 @@ Try to login using an email address that was validated in the AWS SES console fo
 If you have not requested production access for the AWS SES service, the login email very likely will be delivered in
 *spam* inbox.
 
-> ***Note***
+> **Note**
 > The link in the sign-in email will only work if you have configured `localhost:8080` as the value for `TOWER_DOMAIN_NAME` in the `setting.sh` file.
 
 
