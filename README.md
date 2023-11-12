@@ -125,8 +125,8 @@ seqera-platform   Active   1h
 ```
 
 
-> ***Note***
-> The following step is temporary keywork. it should be automated via Terraform.
+> **Important**
+> The following step is temporary workaround. it will be automated via Terraform in a following iteration.
 
 
 Once the deployment process is complete, the following output is printed:
@@ -153,9 +153,7 @@ Finally run this command to create the update the app configuration:
 bash create-terraform-manual-config.sh
 ```
 
-Finally config
-
-### 4. Seqera Platform deployment 
+### 4. Seqera Platform deployment
 
 Deploy the Seqera Platform using this command:
 
