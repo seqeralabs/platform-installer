@@ -1,3 +1,20 @@
+#
+# Copyright 2023, Seqera Labs
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+
 ##
 # define the requirement parameters to deploy Seqera platform
 ## 
@@ -59,7 +76,7 @@ SEQERA_CR_PASSWORD='<REPLACE WITH YOUR SEQERA CONTAINER REGISTRY PASSWORD>'
 # The AWS region where the cluster will be deployed e.g. "eu-west-1"
 AWS_REGION='<REPLACE WITH THE DESIRED AWS REGION>'
 
-# The AWS configuration profile used to setup and deploy the cluster e.g. "development"
+# The AWS configuration profile used to setup and deploy the cluster e.g. "deploy-seqera-platform"
 AWS_PROFILE='<REPLACE WITH THE DESIRED AWS CONFIG PROFILE>'
 
 # The ARN of the AWS user that will operate the EKS cluster
@@ -79,5 +96,5 @@ AWS_EKS_INSTANCE_TYPE='m5a.2xlarge'
 AWS_TF_STATE_BUCKET='seqera-platform-tf-state'
 
 # The AWS S3 path that will store the Terraform state
-AWS_TF_STATE_KEY='/'
+AWS_TF_STATE_KEY='state'
 

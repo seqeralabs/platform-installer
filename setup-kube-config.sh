@@ -16,15 +16,11 @@
 #
 #
 
-# temporary workaround - this config should be created via terraform
 source settings.sh
 
-(kubectl delete configmap tower-terraform-cfg 2> /dev/null) || true
-(kubectl delete secret tower-terraform-secrets 2> /dev/null) || true
+aws eks update-kubeconfig \
+  --name $AWS_EKS_CLUSTER_NAME \
+  --profile $AWS_PROFILE \
+  --region $AWS_REGION
 
-kubectl create configmap tower-terraform-cfg \
-    --from-literal=TOWER_DB_URL="jdbc:mysql://${TOWER_DB_HOSTNAME}:3306/${TOWER_DB_SCHEMA}?&usePipelineAuth=false&useBatchMultiSend=false" \
-    --from-literal=TOWER_REDIS_URL="redis://${TOWER_REDIS_HOSTNAME}:6379"
-
-kubectl create secret generic tower-terraform-secrets \
-    --from-literal=TOWER_DB_PASSWORD="$TOWER_DB_PASSWORD"
+kubectl config set-context --current --namespace="$TOWER_NAMESPACE"

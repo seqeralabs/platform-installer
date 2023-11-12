@@ -1,7 +1,7 @@
 
 ## Module
 module "terraform-seqera-module" {
-  source  = "github.com/seqeralabs/terraform-seqera-module"
+  source  = "github.com/seqeralabs/terraform-seqera-module?ref=2d32b27daee63dddb81a92cde19405f12edf7223"
   region  = "${AWS_REGION}"
   aws_profile = "${AWS_PROFILE}"
   seqera_namespace_name = "${TOWER_NAMESPACE}"
@@ -14,7 +14,7 @@ module "terraform-seqera-module" {
   ## customer has to choose the correct VPC
   vpc_cidr = "10.0.0.0/16"
 
-  azs                 = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+  azs                 = ["${AWS_REGION}a", "${AWS_REGION}b", "${AWS_REGION}c"]
   private_subnets     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets      = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
   database_subnets    = ["10.0.104.0/24", "10.0.105.0/24", "10.0.106.0/24"]
@@ -32,21 +32,24 @@ module "terraform-seqera-module" {
   ## user with AdministratorAccess policy
   eks_aws_auth_users = [ "${AWS_USER_ARN}" ]
 
-   ## DB settings
-   db_master_username = "${TOWER_DB_ADMIN_USER}"
-   db_master_password = "${TOWER_DB_ADMIN_PASSWORD}"
-   db_name = "${TOWER_DB_SCHEMA}"
-   db_username = "${TOWER_DB_USER}"
-   db_password = "${TOWER_DB_PASSWORD}"
+  ## DB settings
+  db_root_username = "${TOWER_DB_ADMIN_USER}"
+  db_app_schema_name = "${TOWER_DB_SCHEMA}"
+  db_app_username = "${TOWER_DB_USER}"
+
+  default_tags = {
+    ManagedBy   = "Terraform"
+    Product     = "SeqeraPlatform"
+  }
 
 }
 
 ## Outputs
-output "database_url" {
+output "TOWER_DB_HOSTNAME" {
   value = module.terraform-seqera-module.database_url
 }
 
-output "redis_url" {
+output "TOWER_REDIS_HOSTNAME" {
   value = module.terraform-seqera-module.redis_url
 }
 
