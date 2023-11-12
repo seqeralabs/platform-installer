@@ -1,4 +1,4 @@
-## Seqera Platform installer for AWS EKS
+# Seqera Platform installer for AWS EKS
 
 This Terraform script streamlines the deployment of Seqera Platform and required infrastructure.
 
@@ -10,14 +10,14 @@ It deploys:
 * AWS Application load-balancer (optional)
 
 
-### Requirements 
+## Requirements
 
 * Terraform 1.5.x 
 * AWS CLI 
 * AWS IAM User with "Admin
 
 
-### Before you start
+## Before you start
 
 * Create a AWS IAM user that will used to deployed the EKS cluster and access to it. The user should have
   `AdministratorAccess` IAM policy.
@@ -28,9 +28,9 @@ It deploys:
 * Install Terraform if you don't have it already. See [Terraform documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) for details.
 * Install AWS command line tool if you don't have it already. See [AWS documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for details.
 
-### Getting started
+## Getting started
 
-#### 1. AWS config profile
+### 1. AWS config profile
 
 Create an AWS configuration profile that it will be used to setup and deploy the EKS cluster.
 
@@ -45,7 +45,7 @@ NOTE: The use of AWS credentials defined via environment variable is not support
 variable if they are defined in your environment: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCESS_KEY`,
 `AWS_SECRET_KEY`.
 
-#### 2. Environment configuration
+### 2. Environment configuration
 
 Create a copy of the `settings.template.sh` file, giving it the name `settings.sh` and specify the value of the
 following parameters:
@@ -68,7 +68,7 @@ following parameters:
 > **Note**
 > Review also the remaining parameters default values in the `settings.sh` and change them accordingly your requirements if needed.
 
-#### 3. Cluster deployment
+### 3. Cluster deployment
 
 Use the following file to create the Terraform main file configured with your settings
 
@@ -232,7 +232,7 @@ variable `TOWER_DOMAIN_NAME` with the AWS Application load balancer hostname spe
 See [AWS documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-elb-load-balancer.html) for further details.
 
 
-### Uninstallation
+## Uninstallation
 
 To uninstall Seqera Platform deployment, use the following command:
 
