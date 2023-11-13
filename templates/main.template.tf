@@ -1,7 +1,7 @@
 
 ## Module
-module "terraform-seqera-module" {
-  source  = "github.com/seqeralabs/terraform-seqera-module?ref=2d32b27daee63dddb81a92cde19405f12edf7223"
+module "terraform-seqera-aws" {
+  source  = "github.com/seqeralabs/terraform-seqera-aws?ref=v0.6.0"
   region  = "${AWS_REGION}"
   aws_profile = "${AWS_PROFILE}"
   seqera_namespace_name = "${TOWER_NAMESPACE}"
@@ -43,16 +43,6 @@ module "terraform-seqera-module" {
   }
 
 }
-
-## Outputs
-output "TOWER_DB_HOSTNAME" {
-  value = module.terraform-seqera-module.database_url
-}
-
-output "TOWER_REDIS_HOSTNAME" {
-  value = module.terraform-seqera-module.redis_url
-}
-
 
 ### where the terraform state is persisted
 

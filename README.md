@@ -41,9 +41,16 @@ aws --profile <PROFILE NAME> configure
 Replace `<PROFILE NAME>` with a profile name of your choice e.g. `seqera-config`. When asked specify the AWS credentials
 of the AWS IAM account that will be used to deploy the cluster. The user should have the `AdministratorAccess` IAM policy.
 
-NOTE: The use of AWS credentials defined via environment variable is not supported. Make sure to unset the following
-variable if they are defined in your environment: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCESS_KEY`,
-`AWS_SECRET_KEY`.
+> **Warning**
+> The use of AWS credentials defined via environment variable is not supported. Make sure to unset the following
+> variable if they are defined in your environment: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCESS_KEY`,
+> `AWS_SECRET_KEY`.
+
+Make sure to unset all AWS environment variables with this command:
+
+```
+unset "${!AWS@}"
+```
 
 ### 2. Environment configuration
 
@@ -97,7 +104,7 @@ terraform plan
 Deploy the EKS cluster using the Terraform `apply` command: 
 
 ```
-terraform apply 
+terraform apply -auto-approve
 ```
 
 Once the deployment process is complete, update your Kubernetes configuration so that
@@ -125,34 +132,6 @@ seqera-platform   Active   1h
 ```
 
 
-> **Important**
-> The following step is temporary workaround. it will be automated via Terraform in a following iteration.
-
-
-Once the deployment process is complete, the following output is printed:
-
-```
-Outputs:
-
-TOWER_DB_HOSTNAME = "<your rds instance unique>.rds.amazonaws.com"
-TOWER_REDIS_HOSTNAME = "<your elasticache instance unique>.cache.amazonaws.com"
-```
-
-Append the above variables in the `settings.sh` file, prefixing them with the `export` keyword and making
-sure to remove any blank before and after the `=` operator.
-
-Append also the following entry to the `settings.sh` file:
-
-```
-export TOWER_DB_PASSWORD=$(kubectl get secret seqera-db-password -o=jsonpath='{.data.password}')
-```
-
-Finally run this command to create the update the app configuration:
-
-```
-bash create-terraform-manual-config.sh
-```
-
 ### 4. Seqera Platform deployment
 
 Deploy the Seqera Platform using this command:
@@ -174,11 +153,11 @@ NAME                        READY   STATUS      RESTARTS     AGE
 backend-dd9d8495d-w594d     0/1     Running     0            21s
 cron-777485bcf8-2m5cf       0/1     Init:0/1    1 (8s ago)   21s
 frontend-845555f54b-ljmzr   1/1     Running     0            20s
-seqera-db-setup-job-k24kb   0/1     Completed   0            11h
+seqera-db-setup-job-xyz   0/1     Completed   0            11h
 ```
 
 > **Note**
-> The pod `seqera-db-setup-job-k24kb` is created during the setup and can be safely deleted.
+> The pod `seqera-db-setup-job-xyz` is created during the setup and can be safely deleted.
 
 Once all pod are in `Running` status you can connect to the Seqerea Platform via the using this command:
 
