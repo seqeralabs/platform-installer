@@ -41,7 +41,7 @@ aws --profile <PROFILE NAME> configure
 Replace `<PROFILE NAME>` with a profile name of your choice e.g. `seqera-config`. When asked specify the AWS credentials
 of the AWS IAM account that will be used to deploy the cluster. The user should have the `AdministratorAccess` IAM policy.
 
-> **Warning**
+> **Important**
 > The use of AWS credentials defined via environment variable is not supported. Make sure to unset the following
 > variable if they are defined in your environment: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCESS_KEY`,
 > `AWS_SECRET_KEY`.
