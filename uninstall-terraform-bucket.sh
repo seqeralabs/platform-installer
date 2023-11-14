@@ -18,5 +18,5 @@
 
 source settings.sh
 
-aws s3 rm --recursive --profile $AWS_PROFILE s3://$AWS_TF_STATE_BUCKET/*
+aws s3 rm --recursive --profile $AWS_PROFILE s3://$AWS_TF_STATE_BUCKET
 aws s3 rb s3://$AWS_TF_STATE_BUCKET --profile $AWS_PROFILE --region $AWS_REGION
