@@ -27,7 +27,17 @@ kubectl create secret docker-registry reg-creds \
   --docker-username="$SEQERA_CR_USER" \
   --docker-password="$SEQERA_CR_PASSWORD"
 
-# hack to keep 
+(kubectl delete configmap tower-terraform-cfg 2> /dev/null) || true
+(kubectl delete secret tower-terraform-secrets 2> /dev/null) || true
+
+kubectl create configmap tower-terraform-cfg \
+    --from-literal=TOWER_DB_URL="jdbc:mysql://${TOWER_DB_HOSTNAME}:3306/${TOWER_DB_SCHEMA}?&usePipelineAuth=false&useBatchMultiSend=false" \
+    --from-literal=TOWER_REDIS_URL="redis://${TOWER_REDIS_HOSTNAME}:6379"
+
+kubectl create secret generic tower-terraform-secrets \
+    --from-literal=TOWER_DB_PASSWORD="$TOWER_DB_PASSWORD"
+
+# keep those as variable
 export TOWER_REDIS_HOSTNAME='${TOWER_REDIS_HOSTNAME}'
 export TOWER_DB_HOSTNAME='${TOWER_DB_HOSTNAME}'
 

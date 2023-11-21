@@ -1,31 +1,23 @@
 
 ## Module
 module "terraform-seqera-aws" {
-  source  = "github.com/seqeralabs/terraform-seqera-aws?ref=v0.6.0"
+  source  = "github.com/seqeralabs/terraform-seqera-aws?ref=v0.7.0"
   region  = "${AWS_REGION}"
-  aws_profile = "${AWS_PROFILE}"
   seqera_namespace_name = "${TOWER_NAMESPACE}"
 
-  ## The setting of the VPC to be created
-
-  ## VPC
+  ## VPC settings
   vpc_name = "${AWS_VPC_NAME}"
-
-  ## customer has to choose the correct VPC
   vpc_cidr = "10.0.0.0/16"
 
-  azs                 = ["${AWS_REGION}a", "${AWS_REGION}b", "${AWS_REGION}c"]
   private_subnets     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets      = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
-  database_subnets    = ["10.0.104.0/24", "10.0.105.0/24", "10.0.106.0/24"]
-  elasticache_subnets = ["10.0.107.0/24", "10.0.108.0/24", "10.0.109.0/24"]
-  intra_subnets       = ["10.0.110.0/24", "10.0.111.0/24", "10.0.112.0/24"]
 
   ## EKS
+  create_eks_cluster = true
   cluster_name    = "${AWS_EKS_CLUSTER_NAME}"
   cluster_version = "1.27"
 
-  ## TODO Review instance type 
+  ## Review instance type 
   eks_managed_node_group_defaults_instance_types = ["${AWS_EKS_INSTANCE_TYPE}"]
   eks_managed_node_group_defaults_capacity_type = "ON_DEMAND"
   
@@ -36,6 +28,9 @@ module "terraform-seqera-aws" {
   db_root_username = "${TOWER_DB_ADMIN_USER}"
   db_app_schema_name = "${TOWER_DB_SCHEMA}"
   db_app_username = "${TOWER_DB_USER}"
+
+  redis_instance_type = "cache.m4.xlarge"
+  db_instance_class = "db.r5.xlarge"
 
   default_tags = {
     ManagedBy   = "Terraform"
