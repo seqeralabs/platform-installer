@@ -41,7 +41,7 @@ aws --profile <PROFILE NAME> configure
 Replace `<PROFILE NAME>` with a profile name of your choice e.g. `seqera-config`. When asked specify the AWS credentials
 of the AWS IAM account that will be used to deploy the cluster. The user should have the `AdministratorAccess` IAM policy.
 
-> **Important**
+> [!Important]
 > The use of AWS credentials defined via environment variable is not supported. Make sure to unset the following
 > variable if they are defined in your environment: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_ACCESS_KEY`,
 > `AWS_SECRET_KEY`.
@@ -72,7 +72,7 @@ following parameters:
 | `SEQERA_CR_USER`                | The password to access the Seqera container registry to providing the images for installing Seqera Platform |
 
 
-> **Note**
+> [!Note]
 > Review also the remaining parameters default values in the `settings.sh` and change them accordingly your requirements if needed.
 
 ### 3. Cluster deployment
@@ -156,7 +156,7 @@ frontend-845555f54b-ljmzr   1/1     Running     0            20s
 seqera-db-setup-job-xyz   0/1     Completed   0            11h
 ```
 
-> **Note**
+> [!Note]
 > The pod `seqera-db-setup-job-xyz` is created during the setup and can be safely deleted.
 
 Once all pod are in `Running` status you can connect to the Seqerea Platform via the using this command:
@@ -173,7 +173,7 @@ Try to login using an email address that was validated in the AWS SES console fo
 If you have not requested production access for the AWS SES service, the login email very likely will be delivered in
 *spam* inbox.
 
-> **Note**
+> [!Note]
 > The link in the sign-in email will only work if you have configured `localhost:8080` as the value for `TOWER_DOMAIN_NAME` in the `setting.sh` file.
 
 
@@ -225,7 +225,7 @@ To uninstall the EKS cluster, RDS database and Elasticache instance, use the fol
 terraform destroy
 ```
 
-> **Warning**
+> [!Warning]
 > This operation cannot be undone. Make sure to backup the RDS database instance if you want to preserve the data.
 
 Finally delete the S3 bucket used by Terraform using the command below:
