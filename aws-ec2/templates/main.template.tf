@@ -36,17 +36,6 @@ module "terraform-seqera-aws" {
   db_root_password = "${TOWER_DB_ADMIN_PASSWORD}"
 }
 
-# output value
-output "database_hostname" {
-  value = module.terraform-seqera-aws.database_url
-}
-output "redis_hostname" {
-  value = module.terraform-seqera-aws.redis_url
-}
-output "ec2_instance_public_hostname" {
-  value = module.terraform-seqera-aws.ec2_instance_public_dns_name
-}
-
 # Configure the AWS Provider
 provider "aws" {
   region  = "${AWS_REGION}"

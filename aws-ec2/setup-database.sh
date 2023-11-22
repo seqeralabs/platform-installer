@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 #
-
+source hosts.sh
 source settings.sh
 
 DDL="\
@@ -31,4 +31,5 @@ kubectl run -it --rm \
   -- mysql -h $TOWER_DB_HOSTNAME \
     -u $TOWER_DB_ADMIN_USER \
     -p$TOWER_DB_ADMIN_PASSWORD \
-    -e "$DDL"
+    -e "$DDL"  \
+    && echo "Database schema configured successfully."

@@ -94,28 +94,10 @@ terraform apply -auto-approve
 ```
 
 This step will take a few minutes to deploy the Mysql RDS database, the Redis Elasticache instance and
-the EC2 virtual machine. When it completes, it will print something like these:
+the EC2 virtual machine.
 
-```
-Apply complete! Resources: 59 added, 0 changed, 0 destroyed.
 
-Outputs:
-
-database_hostname = "seqera-db.cdvfyscyteue.eu-central-1.rds.amazonaws.com"
-ec2_instance_public_hostname = "ec2-3-71-185-146.eu-central-1.compute.amazonaws.com"
-redis_hostname = "seqera-redis.3e3qgc.ng.0001.euc1.cache.amazonaws.com"
-```
-
-Using the above values, add the following env variables in the `settings.sh` file:
-
-```
-export TOWER_HOSTNAME="<replace with the 'ec2_instance_public_hostname' value>"
-export TOWER_DB_HOSTNAME="<replace with the 'database_hostname' value>"
-export TOWER_REDIS_HOSTNAME="<replace with the 'redis_hostname' value>"
-export TOWER_SERVER_URL="https://${TOWER_HOSTNAME}"
-```
-
-Install the Kubernetes cluster in the EC2 instance using this command:
+When it complete, install the Kubernetes cluster in the EC2 instance using this command:
 
 ```bash
 bash setup-kubernetes.sh

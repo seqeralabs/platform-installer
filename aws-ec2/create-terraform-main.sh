@@ -18,3 +18,4 @@
 
 source settings.sh
 cat templates/main.template.tf | envsubst > main.tf
+cat templates/hosts.template.tf >> main.tf

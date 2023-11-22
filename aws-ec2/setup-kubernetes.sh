@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 #
-
+source hosts.sh
 source settings.sh
 
 k3sup install --host $TOWER_HOSTNAME --user ec2-user

@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 #
-
+source hosts.sh
 source settings.sh
 
 ## create Seqera container registry credentials

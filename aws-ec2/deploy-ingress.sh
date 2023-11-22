@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 #
-
+source hosts.sh
 source settings.sh
 
 ## Deploy the Seqera platform
