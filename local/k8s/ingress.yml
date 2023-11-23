@@ -1,0 +1,22 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tower-ingress
+  namespace: "${TOWER_NAMESPACE}"
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.org/listen-ports: '8000'
+spec:
+  rules:
+    - host: "localhost"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+...
