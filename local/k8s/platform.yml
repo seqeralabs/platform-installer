@@ -159,9 +159,6 @@ metadata:
     app: backend
 spec:
   ports:
-    - name: jmx
-      port: 1099
-      targetPort: 1099
     - name: http
       port: 8080
       targetPort: 8080
