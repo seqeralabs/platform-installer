@@ -21,7 +21,7 @@ It deploys:
 
 * Create a AWS IAM user that will used to deployed the EKS cluster and access to it. The user should have
   `AdministratorAccess` IAM policy.
-* Choose an AWS region when the EKS running Seqera Platform will be deployed.
+* Choose an AWS region where the EKS running Seqera Platform will be deployed.
 * Make sure the AWS Simple Email Service (SES) in the selected region has *production access*.
 * Choose an email address that will use to send email by Seqera Platform and add it in the *Verified identities*
   of the SES services. See [AWS SES documentation for details](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#verify-email-addresses-procedure).
