@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* Terraform 1.5.x
+* Terraform 1.6.2 or later
 * AWS CLI
 * AWS IAM User with "Admin"
 * [k3sup](https://github.com/alexellis/k3sup)
