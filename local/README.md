@@ -21,12 +21,11 @@ following parameters:
 | Parameter | Description
 | --- | --- |
 | `TOWER_CONTACT_EMAIL`           | The email address that will be used as sender when delivering email notification by Seqera Platform e.g. `support@company.com` |
-| `TOWER_DB_ADMIN_PASSWORD`       | The admin password for Seqera Platfom relational database.
-| `TOWER_DB_PASSWORD`             | The password for Seqera Platfom relational database.
+| `TOWER_DB_ADMIN_PASSWORD`       | The admin password for Seqera Platform relational database.
+| `TOWER_DB_PASSWORD`             | The password for Seqera Platform relational database.
 | `TOWER_JWT_SECRET`              | Secret used to generate the login JWT token. Use a long random string (35 chars or more).
 | `TOWER_CRYPTO_SECRETKEY`        | Key used to encrypt secrets. Use a long random string (25 chars or more). |
 | `TOWER_LICENSE`                 | Your Tower license key. If you don't have a license key contact `sales@seqera.io`. |
-| `TOWER_HTTPS_CERTIFICATE_ARN`   | The ARN of the certificate created visa AWS Certificate manager matching the domain specified by the parameter `TOWER_SERVER_NAME`. Only for public facing, it can be ignored otherwise. |
 | `SEQERA_CR_PASSWORD`            | The username to access the Seqera container registry to providing the images for installing Seqera Platform |
 | `SEQERA_CR_USER`                | The password to access the Seqera container registry to providing the images for installing Seqera Platform |
 

@@ -23,7 +23,7 @@
 
 ### 1. AWS config profile
 
-Create an AWS configuration profile that it will be used to setup and deploy the EC2 instance where Seqera Platfom will be installed.
+Create an AWS configuration profile that it will be used to setup and deploy the EC2 instance where Seqera Platform will be installed.
 
 ```
 aws --profile <PROFILE NAME> configure
@@ -54,8 +54,8 @@ following parameters:
 | `AWS_PROFILE`     | The AWS configuration profile used to setup and deploy the cluster e.g. `seqera-config` |
 | `TOWER_DOMAIN_NAME`   | The domain to be used to access the Seqera Platform service e.g. `platform.company.com` |
 | `TOWER_CONTACT_EMAIL` | The email address that will be used as sender when delivering email notification by Seqera Platform e.g. `support@company.com` |
-| `TOWER_DB_PASSWORD`   | The password for Seqera Platfom relational database.
-| `TOWER_DB_ADMIN_PASSWORD`       | The admin password for Seqera Platfom relational database.
+| `TOWER_DB_PASSWORD`   | The password for Seqera Platform relational database.
+| `TOWER_DB_ADMIN_PASSWORD`       | The admin password for Seqera Platform relational database.
 | `TOWER_JWT_SECRET`              | Secret used to generate the login JWT token. Use a long random string (35 chars or more).
 | `TOWER_CRYPTO_SECRETKEY`        | Key used to encrypt secrets. Use a long random string (25 chars or more). |
 | `TOWER_LICENSE`                 | Your Tower license key. If you don't have a license key contact `sales@seqera.io`. |
