@@ -1,0 +1,22 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tower-mail-cfg
+  labels:
+    app: backend-cfg
+data:
+  tower.yml: |
+    mail:
+      from: "${TOWER_CONTACT_EMAIL}"
+      smtp:
+        host: "smtp"
+        port: 25
+        user: "foo"
+        password: "foo"
+        # `auth` and `starttls` should be enabled
+        # with a production SMTP host
+        auth: false
+        starttls:
+          enable: false
+          required: false

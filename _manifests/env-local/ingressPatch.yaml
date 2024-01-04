@@ -1,0 +1,11 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tower-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.org/listen-ports: '8000'
+spec:
+  rules:
+    - host: "localhost"

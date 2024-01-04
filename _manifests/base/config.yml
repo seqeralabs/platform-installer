@@ -1,0 +1,31 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tower-backend-cfg
+  labels:
+    app: backend-cfg
+data:
+  TOWER_SERVER_URL: "${TOWER_SERVER_URL}"
+  TOWER_CONTACT_EMAIL: "${TOWER_CONTACT_EMAIL}"
+  TOWER_JWT_SECRET: "${TOWER_JWT_SECRET}"
+  TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
+  TOWER_DB_USER: "${TOWER_DB_USER}"
+  TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
+  TOWER_DB_MIN_POOL_SIZE: "4"
+  TOWER_DB_MAX_POOL_SIZE: "25"
+  TOWER_DB_MAX_LIFETIME: "180000"
+  TOWER_RATELIMIT_REFRESH: "1s"
+  TOWER_RATELIMIT_PERIOD: "20"
+  TOWER_CRYPTO_SECRETKEY: "${TOWER_CRYPTO_SECRETKEY}"
+  TOWER_LICENSE: "${TOWER_LICENSE}"
+  TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,googlebatch-platform,lsf-platform,slurm-platform,uge-platform,k8s-platform,eks-platform,gke-platform,azbatch-platform,altair-platform,moab-platform"
+  TOWER_ENABLE_OPENAPI: "true"
+  TOWER_ENABLE_ARM64: "true"
+  TOWER_MONITORING_ENV: "prod"
+  FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
+  JAVA_OPTS: "-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=1500M -Dslim.shaded.io.netty.tryReflectionSetAccessible=true -Dio.netty.tryReflectionSetAccessible=true"
+## only for testing
+  LICENSE_SERVER_URL: "https://licenses.stage-seqera.net"
+  LICENSE_VALIDATION_ENDPOINT: "https://licenses.stage-seqera.net/validate"
+...

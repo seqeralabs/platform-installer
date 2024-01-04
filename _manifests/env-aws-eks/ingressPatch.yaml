@@ -1,0 +1,49 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tower-ingress
+  annotations:
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/certificate-arn: "${TOWER_HTTPS_CERTIFICATE_ARN}"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/load-balancer-attributes: |-
+      idle_timeout.timeout_seconds=301, routing.http2.enabled=false
+      , routing.http.drop_invalid_header_fields.enabled=true
+    alb.ingress.kubernetes.io/load-balancer-name: tower-paolo-tes
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-Ext-2018-06
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+spec:
+  rules:
+    - host: "${TOWER_DOMAIN_NAME}"
+      http:
+        paths:
+          - backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+            path: /*
+            pathType: ImplementationSpecific
+    - host: "user-data.${TOWER_DOMAIN_NAME}"
+      http:
+        paths:
+          - backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+            path: /*
+            pathType: ImplementationSpecific
+    - host: "api.${TOWER_DOMAIN_NAME}"
+      http:
+        paths:
+          - backend:
+              service:
+                name: backend-api
+                port:
+                  number: 8080
+            path: /*
+            pathType: ImplementationSpecific
+...

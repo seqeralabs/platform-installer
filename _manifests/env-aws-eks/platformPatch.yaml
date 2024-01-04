@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  template:
+    spec:
+      serviceAccountName: seqera-sa
+      containers:
+        - name: backend
+          resources:
+            requests:
+              cpu: "1"
+          envFrom:
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cron
+spec:
+  template:
+    spec:
+      serviceAccountName: seqera-sa
+      initContainers:
+        - name: migrate-db
+          envFrom:
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+      containers:
+        - name: backend
+          resources:
+            requests:
+              cpu: "1"
+          envFrom:
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+...
