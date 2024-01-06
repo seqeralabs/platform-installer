@@ -14,6 +14,8 @@ spec:
               cpu: "1"
           envFrom:
             - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
                 name: tower-terraform-cfg
             - secretRef:
                 name: tower-terraform-secrets
@@ -30,6 +32,8 @@ spec:
         - name: migrate-db
           envFrom:
             - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
                 name: tower-terraform-cfg
             - secretRef:
                 name: tower-terraform-secrets
@@ -39,6 +43,8 @@ spec:
             requests:
               cpu: "1"
           envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
             - configMapRef:
                 name: tower-terraform-cfg
             - secretRef:

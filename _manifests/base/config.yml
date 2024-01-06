@@ -5,6 +5,7 @@ metadata:
   name: tower-backend-cfg
   labels:
     app: backend-cfg
+    group: config
 data:
   TOWER_SERVER_URL: "${TOWER_SERVER_URL}"
   TOWER_CONTACT_EMAIL: "${TOWER_CONTACT_EMAIL}"

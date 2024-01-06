@@ -45,9 +45,6 @@ export TOWER_DB_USER='tower'
 # Relational DB password used by Seqera platform.
 export TOWER_DB_PASSWORD='<REPLACE WITH THE DB PASSWORD>'
 
-# Relational DB admin username used by Seqera platform. Default "admin".
-export TOWER_DB_ADMIN_USER='admin'
-
 # Relational DB admin password used by Seqera platform.
 export TOWER_DB_ADMIN_PASSWORD='<REPLACE WITH THE DB PASSWORD>'
 

@@ -7,5 +7,4 @@ metadata:
     ingress.kubernetes.io/ssl-redirect: "false"
     nginx.org/listen-ports: '8000'
 spec:
-  rules:
-    - host: "localhost"
+  ingressClassName: 'traefik'

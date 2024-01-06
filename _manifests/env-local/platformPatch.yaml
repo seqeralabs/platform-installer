@@ -10,6 +10,8 @@ spec:
         - name: backend
           envFrom:
             - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
                 name: tower-mail-cfg
 ---
 apiVersion: apps/v1
@@ -23,10 +25,14 @@ spec:
         - name: migrate-db
           envFrom:
             - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
                 name: tower-mail-cfg
       containers:
         - name: cron
           envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
             - configMapRef:
                 name: tower-mail-cfg
           volumeMounts:

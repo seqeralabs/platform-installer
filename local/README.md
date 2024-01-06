@@ -52,7 +52,7 @@ $ curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 Once k3d is installed, setup a Kubernetes cluster using this command:
 
 ```bash
-setup-kubernetes.sh
+bash setup-kubernetes.sh
 ```
 
 Verify the Kubernetes cluster is up and running using this command:

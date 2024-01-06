@@ -10,6 +10,8 @@ spec:
         - name: backend
           envFrom:
             - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
                 name: tower-terraform-cfg
             - secretRef:
                 name: tower-terraform-secrets
@@ -25,12 +27,16 @@ spec:
         - name: migrate-db
           envFrom:
             - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
                 name: tower-terraform-cfg
             - secretRef:
                 name: tower-terraform-secrets
       containers:
         - name: corn
           envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
             - configMapRef:
                 name: tower-terraform-cfg
             - secretRef:

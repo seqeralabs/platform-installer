@@ -5,6 +5,7 @@ metadata:
   name: tower-mail-cfg
   labels:
     app: backend-cfg
+    group: config
 data:
   tower.yml: |
     mail:

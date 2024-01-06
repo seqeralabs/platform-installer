@@ -5,6 +5,7 @@ metadata:
   name: tower-ingress
   labels:
     app: ingress
+    group: ingress
 spec:
   ingressClassName: 'alb'
   rules:
