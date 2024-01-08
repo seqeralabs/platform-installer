@@ -105,15 +105,16 @@ spec:
         app: smtp
     spec:
       containers:
-        - image: catatnight/postfix
+        - image: maildev/maildev
           name: smtp
           env:
-            - name: "maildomain"
-              value: "your-org.com"
-            - name: "smtp_user"
-              value: "foo:foo"
+            - name: "MAILDEV_INCOMING_USER"
+              value: "foo"
+            - name: "MAILDEV_INCOMING_PASS"
+              value: "foo"
           ports:
-            - containerPort: 25
+            - containerPort: 1025
+            - containerPort: 1080
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -126,9 +127,8 @@ metadata:
 spec:
   ports:
     - port: 25
-      targetPort: 25
-      protocol: TCP
-  type: NodePort
+      targetPort: 1025
+  type: ClusterIP
   selector:
     app: "smtp"
 ...

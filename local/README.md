@@ -120,8 +120,12 @@ kubectl port-forward deployment/frontend 8000:80
 
 Then open your browser at the address http://localhost:8000, the Seqera Platform login page should be shown.
 
-Try to login using using your email address. Considering a test email server is used, the login email very likely
-will be delivered in *spam* inbox.
+Try to login using using your email address. The email will NOT be delivered to the real recipient but to a sandbox mail
+account. To access it run the command below, then open your browser at this link http://localhost:1080
+
+```
+kubectl port-forward deployment/smtp 1080:1080
+```
 
 > [!Note]
 > The link in the sign-in email will only work if you have configured `localhost:8000` as the value for `TOWER_HOSTNAME` in the `setting.sh` file.
