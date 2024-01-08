@@ -23,7 +23,6 @@ kubectl delete deployment smtp
 kubectl delete statefulset redis
 kubectl delete statefulset mysql
 kubectl delete secret reg-creds || true
-kubectl delete cm tower-terraform-cfg
 kubectl delete cm tower-backend-cfg
 kubectl delete cm tower-mail-cfg
 

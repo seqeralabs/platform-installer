@@ -23,7 +23,7 @@
 export TOWER_NAMESPACE='seqera-platform'
 
 # The domain to be used to access the Seqera platform service e.g. "seqera-platform.company.com"
-export TOWER_HOSTNAME='localhost:8080'
+export TOWER_HOSTNAME='localhost:8000'
 
 # The HTTP URL to access the Seqera platform service. The hostname must match the variable `TOWER_HOSTNAME`
 # Do not include any ending slash character.
@@ -44,9 +44,6 @@ export TOWER_DB_USER='tower'
 
 # Relational DB password used by Seqera platform.
 export TOWER_DB_PASSWORD='<REPLACE WITH THE DB PASSWORD>'
-
-# Relational DB admin username used by Seqera platform. Default "admin".
-export TOWER_DB_ADMIN_USER='admin'
 
 # Relational DB admin password used by Seqera platform.
 export TOWER_DB_ADMIN_PASSWORD='<REPLACE WITH THE DB PASSWORD>'

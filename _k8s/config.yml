@@ -3,18 +3,15 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: tower-backend-cfg
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: backend-cfg
+    group: config
 data:
   TOWER_SERVER_URL: "${TOWER_SERVER_URL}"
   TOWER_CONTACT_EMAIL: "${TOWER_CONTACT_EMAIL}"
   TOWER_JWT_SECRET: "${TOWER_JWT_SECRET}"
-  TOWER_REDIS_URL: "redis://${TOWER_REDIS_HOSTNAME}:6379"
-  TOWER_DB_URL: "jdbc:mysql://${TOWER_DB_HOSTNAME}:3306/${TOWER_DB_SCHEMA}?&usePipelineAuth=false&useBatchMultiSend=false&allowPublicKeyRetrieval=true&useSSL=false"
   TOWER_DB_DRIVER: "org.mariadb.jdbc.Driver"
   TOWER_DB_USER: "${TOWER_DB_USER}"
-  TOWER_DB_PASSWORD: "${TOWER_DB_PASSWORD}"
   TOWER_DB_DIALECT: "io.seqera.util.MySQL55DialectCollateBin"
   TOWER_DB_MIN_POOL_SIZE: "4"
   TOWER_DB_MAX_POOL_SIZE: "25"
@@ -32,27 +29,4 @@ data:
 ## only for testing
   LICENSE_SERVER_URL: "https://licenses.stage-seqera.net"
   LICENSE_VALIDATION_ENDPOINT: "https://licenses.stage-seqera.net/validate"
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: tower-mail-cfg
-  namespace: "${TOWER_NAMESPACE}"
-  labels:
-    app: backend-cfg
-data:
-  tower.yml: |
-    mail:
-      from: "${TOWER_CONTACT_EMAIL}"
-      smtp:
-        host: "smtp"
-        port: 25
-        user: "foo"
-        password: "foo"
-        # `auth` and `starttls` should be enabled
-        # with a production SMTP host
-        auth: false
-        starttls:
-          enable: false
-          required: false
 ...

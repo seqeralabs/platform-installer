@@ -4,9 +4,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: backend
+    group: platform
 spec:
   selector:
     matchLabels:
@@ -28,8 +28,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
-            - configMapRef:
-                name: tower-mail-cfg
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,ha,openapi"
@@ -59,9 +57,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cron
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: cron
+    group: platform
 spec:
   selector:
     matchLabels:
@@ -81,23 +79,15 @@ spec:
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
-            - configMapRef:
-                name: tower-mail-cfg
       containers:
         - name: cron
           image: cr.seqera.io/private/nf-tower-enterprise/backend:v23.3.0-BETA1
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
-            - configMapRef:
-                name: tower-mail-cfg
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,cron"
-          volumeMounts:
-            - name: tower-mail-cfg
-              mountPath: /tower.yml
-              subPath: "tower.yml"
           ports:
             - containerPort: 1099
             - containerPort: 8080
@@ -119,18 +109,14 @@ spec:
             initialDelaySeconds: 5
             timeoutSeconds: 3
             failureThreshold: 10
-      volumes:
-        - name: tower-mail-cfg
-          configMap:
-            name: tower-mail-cfg
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: frontend
+    group: platform
 spec:
   selector:
     matchLabels:
@@ -154,9 +140,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: backend
+    group: platform
 spec:
   ports:
     - name: http
@@ -169,9 +155,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend-api
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: backend
+    group: platform
 spec:
   ports:
     - port: 8080
@@ -185,15 +171,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: frontend
+    group: platform
 spec:
   ports:
     - port: 80
       targetPort: 80
       protocol: TCP
-  type: ClusterIP
+  type: NodePort
   selector:
     app: "frontend"
 ...

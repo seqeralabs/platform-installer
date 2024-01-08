@@ -27,14 +27,25 @@ DDL="\
  GRANT ALL PRIVILEGES ON ${TOWER_DB_USER}.* TO ${TOWER_DB_USER}@'%';\
  "
 
-sleep 10
+is_pod_ready() {
+    kubectl get pod "$1" 2>/dev/null | grep "1/1" | grep "Running" | grep "Terminating" -v
+}
+
+wait_for() {
+  echo "Waiting for pod $1 to be ready..."
+  while ! is_pod_ready $1; do
+      sleep 5
+  done
+}
+
+wait_for 'mysql-0'
 
 kubectl delete pod mysql-client &> /dev/null
 kubectl run -it --rm \
   --image=mysql:latest \
   --restart=Never \
   mysql-client \
-  -- mysql -h $TOWER_DB_HOSTNAME \
+  -- mysql -h mysql \
     -u root \
     -p$TOWER_DB_ADMIN_PASSWORD \
     -e "$DDL"  \
