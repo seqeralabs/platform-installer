@@ -159,7 +159,7 @@ seqera-db-setup-job-xyz   0/1     Completed   0            11h
 > [!Note]
 > The pod `seqera-db-setup-job-xyz` is created during the setup and can be safely deleted.
 
-Once all pod are in `Running` status you can connect to the Seqerea Platform via the using this command:
+Once all pod are in `Running` status you can connect to the Seqera Platform via the using this command:
 
 
 ```

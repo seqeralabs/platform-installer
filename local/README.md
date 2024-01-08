@@ -112,7 +112,7 @@ cron-6465789996-k4jr9       0/1     Init:0/1            0          18s
 frontend-845555f54b-4l2tl   1/1     Running             0          18s
 ```
 
-Once all pod are in `Running` status you can connect to the Seqerea Platform via the using this command:
+Once all pod are in `Running` status you can connect to the Seqera Platform via the using this command:
 
 ```
 kubectl port-forward deployment/frontend 8000:80

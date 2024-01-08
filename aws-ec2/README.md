@@ -139,7 +139,7 @@ backend-7b85bff7f9-2rpp6    1/1     Running   0            104s
 cron-845866f5ff-zrf8l       1/1     Running   0            104s
 ```
 
-Once all pod are in `Running` status you can connect to the Seqerea Platform via the using this command:
+Once all pod are in `Running` status you can connect to the Seqera Platform via the using this command:
 
 
 ```
