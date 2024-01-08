@@ -21,4 +21,4 @@ source settings.sh
 export TOWER_HOSTNAME=localhost
 
 ## Deploy the Seqera platform
-kubectl apply -n $TOWER_NAMESPACE -l group=ingress -f <(kubectl kustomize ../_manifests/env-local | envsubst)
+kubectl apply -n $TOWER_NAMESPACE -l group=ingress -f <(kubectl kustomize ./k8s | envsubst)
