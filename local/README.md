@@ -72,7 +72,7 @@ kube-node-lease   Active   2m42s
 seqera-platform   Active   2m32s
 ```
 
-Deploy the MySLQ database, the Redis cache and the SMTP service using this command:
+Deploy the MySQL database, the Redis cache and the SMTP service using this command:
 
 ```bash
 bash setup-infra.sh
