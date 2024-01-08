@@ -124,7 +124,7 @@ Try to login using using your email address. Considering a test email server is 
 will be delivered in *spam* inbox.
 
 > [!Note]
-> The link in the sign-in email will only work if you have configured `localhost:8080` as the value for `TOWER_HOSTNAME` in the `setting.sh` file.
+> The link in the sign-in email will only work if you have configured `localhost:8000` as the value for `TOWER_HOSTNAME` in the `setting.sh` file.
 
 
 ### 5. Configure ingress controller
