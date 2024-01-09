@@ -155,6 +155,13 @@ tower-ingress   traefik   localhost   172.22.0.3   80      5s
 
 Then open your browser at the address http://localhost:8000, the Seqera Platform login page should be shown.
 
+### 6. Install Groundswell (optional)
+
+Use the following command to setup the Groundswell optimisation service:
+
+```bash
+bash deploy-groundswell.sh
+```
 
 ## Uninstallation
 
