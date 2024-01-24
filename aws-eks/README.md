@@ -62,7 +62,7 @@ following parameters:
 | `AWS_REGION`      | The AWS region where the cluster will be deployed e.g. `eu-west-1`    |
 | `AWS_PROFILE`     | The AWS configuration profile used to setup and deploy the cluster e.g. `seqera-config` |
 | `AWS_USER_ARN`    | The ARN of the AWS user that will operate the EKS cluster |
-| `TOWER_APP_HOSTNAME`   | The domain to be used to access the Seqera Platform service e.g. `platform.company.com` |
+| `TOWER_APP_HOSTNAME`  | The domain to be used to access the Seqera Platform service e.g. `platform.company.com` |
 | `TOWER_CONTACT_EMAIL` | The email address that will be used as sender when delivering email notification by Seqera Platform e.g. `support@company.com` |
 | `TOWER_JWT_SECRET`    | Secret used to generate the login JWT token. Use a long random string (35 chars or more).
 | `TOWER_CRYPTO_SECRETKEY`        | Key used to encrypt secrets. Use a long random string (25 chars or more). |
