@@ -33,11 +33,24 @@ wait_for() {
 
 wait_for 'mysql-0'
 
-
+#
+# Create "tower" schema
+#
 export DDL="\
  CREATE DATABASE IF NOT EXISTS ${TOWER_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
  CREATE USER IF NOT EXISTS ${TOWER_DB_USER} IDENTIFIED BY '${TOWER_DB_PASSWORD}';\
  GRANT ALL PRIVILEGES ON ${TOWER_DB_USER}.* TO ${TOWER_DB_USER}@'%';\
+ "
+
+bash ./mysql-ddl.sh
+
+#
+# Create "groundswell" schema
+#
+export DDL="\
+ CREATE DATABASE IF NOT EXISTS ${SWELL_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
+ CREATE USER IF NOT EXISTS ${SWELL_DB_USER} IDENTIFIED BY '${SWELL_DB_PASSWORD}';\
+ GRANT ALL PRIVILEGES ON ${SWELL_DB_USER}.* TO ${SWELL_DB_USER}@'%';\
  "
 
 bash ./mysql-ddl.sh

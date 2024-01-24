@@ -7,5 +7,6 @@ resources:
 patchesStrategicMerge:
   - configPatch.yml
   - platformPatch.yaml
+  - groundswellPatch.yaml
   - ingressPatch.yaml
 ...

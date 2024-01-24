@@ -26,6 +26,7 @@ following parameters:
 | `TOWER_JWT_SECRET`              | Secret used to generate the login JWT token. Use a long random string (35 chars or more).
 | `TOWER_CRYPTO_SECRETKEY`        | Key used to encrypt secrets. Use a long random string (25 chars or more). |
 | `TOWER_LICENSE`                 | Your Tower license key. If you don't have a license key contact `sales@seqera.io`. |
+| `SWELL_DB_PASSWORD`             | The password for Seqera Groundswell relational database.
 | `SEQERA_CR_PASSWORD`            | The username to access the Seqera container registry to providing the images for installing Seqera Platform |
 | `SEQERA_CR_USER`                | The password to access the Seqera container registry to providing the images for installing Seqera Platform |
 
