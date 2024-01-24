@@ -16,7 +16,7 @@ metadata:
     alb.ingress.kubernetes.io/ssl-redirect: "443"
 spec:
   rules:
-    - host: "${TOWER_DOMAIN_NAME}"
+    - host: "${TOWER_APP_HOSTNAME}"
       http:
         paths:
           - backend:
@@ -26,7 +26,7 @@ spec:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
-    - host: "user-data.${TOWER_DOMAIN_NAME}"
+    - host: "user-data.${TOWER_APP_HOSTNAME}"
       http:
         paths:
           - backend:
@@ -36,7 +36,7 @@ spec:
                   number: 80
             path: /*
             pathType: ImplementationSpecific
-    - host: "api.${TOWER_DOMAIN_NAME}"
+    - host: "api.${TOWER_APP_HOSTNAME}"
       http:
         paths:
           - backend:

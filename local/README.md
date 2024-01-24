@@ -140,7 +140,7 @@ tower-ingress   traefik   localhost   172.22.0.3   80      5s
 Then open your browser at the address http://localhost:8000, the Seqera Platform login page should be shown.
 
 > [!Note]
-> The link in the sign-in email will only work if you have configured `localhost:8000` as the value for `TOWER_HOSTNAME` in the `setting.sh` file.
+> The link in the sign-in email will only work if you have configured `localhost:8000` as the value for `TOWER_APP_HOSTNAME` in the `setting.sh` file.
 
 Try to login using using your email address. The email will NOT be delivered to the real recipient but to a sandbox mail
 account. To access it run the command below, then open your browser at this link http://localhost:1080
