@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: 'alb'
   rules:
-    - host: "${TOWER_HOSTNAME}"
+    - host: "${TOWER_APP_HOSTNAME}"
       http:
         paths:
           - path: /

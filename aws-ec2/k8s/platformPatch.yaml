@@ -33,7 +33,7 @@ spec:
             - secretRef:
                 name: tower-terraform-secrets
       containers:
-        - name: corn
+        - name: cron
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
