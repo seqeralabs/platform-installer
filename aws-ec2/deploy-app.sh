@@ -32,7 +32,8 @@ kubectl create secret docker-registry reg-creds \
 
 kubectl create configmap tower-terraform-cfg \
     --from-literal=TOWER_DB_URL="jdbc:mysql://${TOWER_DB_HOSTNAME}:3306/${TOWER_DB_SCHEMA}?&usePipelineAuth=false&useBatchMultiSend=false" \
-    --from-literal=TOWER_REDIS_URL="redis://${TOWER_REDIS_HOSTNAME}:6379"
+    --from-literal=TOWER_REDIS_URL="redis://${TOWER_REDIS_HOSTNAME}:6379" \
+    --from-literal=SWELL_DB_URL="mysql://${TOWER_DB_HOSTNAME}:3306/${SWELL_DB_SCHEMA}"
 
 kubectl create secret generic tower-terraform-secrets \
     --from-literal=TOWER_DB_PASSWORD="$TOWER_DB_PASSWORD"
@@ -46,3 +47,6 @@ kubectl apply -n $TOWER_NAMESPACE -l group=config -f <(kubectl kustomize ./k8s |
 
 ## Deploy the Seqera platform
 kubectl apply -n $TOWER_NAMESPACE -l group=platform -f <(kubectl kustomize ./k8s  | envsubst)
+
+## Deploy the Seqera Groundswell
+kubectl apply -n $TOWER_NAMESPACE -l group=groundswell -f <(kubectl kustomize ./k8s  | envsubst)

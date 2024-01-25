@@ -92,3 +92,9 @@ export AWS_VPC_NAME='seqera-platform-vpc'
 # If you want to use more than one, edit the corresponding value in the "main.nf" file
 export AWS_EC2_INSTANCE_TYPE='m5a.2xlarge'
 
+# Groundswell config
+export SWELL_DB_SCHEMA=groundswell
+export SWELL_DB_USER=groundswell
+
+# Relational DB password used by Seqera Groundswell.
+export SWELL_DB_PASSWORD='<REPLACE WITH THE DB PASSWORD>'

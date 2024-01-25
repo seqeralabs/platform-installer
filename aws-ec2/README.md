@@ -61,6 +61,7 @@ following parameters:
 | `TOWER_CRYPTO_SECRETKEY`        | Key used to encrypt secrets. Use a long random string (25 chars or more). |
 | `TOWER_LICENSE`                 | Your Tower license key. If you don't have a license key contact `sales@seqera.io`. |
 | `TOWER_HTTPS_CERTIFICATE_ARN`   | The ARN of the certificate created visa AWS Certificate manager matching the domain specified by the parameter `TOWER_SERVER_NAME`. Only for public facing, it can be ignored otherwise. |
+| `SWELL_DB_PASSWORD`             | The password for Seqera Groundswell relational database.
 | `SEQERA_CR_PASSWORD`            | The username to access the Seqera container registry to providing the images for installing Seqera Platform |
 | `SEQERA_CR_USER`                | The password to access the Seqera container registry to providing the images for installing Seqera Platform |
 

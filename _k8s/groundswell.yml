@@ -7,8 +7,9 @@ metadata:
     app: groundswell-cfg
     group: groundswell
 data:
-  SWELL_DB_USER: "groundswell"
   SWELL_DB_DIALECT: "mysql"
+  SWELL_DB_USER: "${SWELL_DB_USER}"
+  SWELL_DB_PASSWORD: "${SWELL_DB_PASSWORD}"
 ---
 # Deployments
 apiVersion: apps/v1
