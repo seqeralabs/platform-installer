@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 #
+set -e
 source settings.sh
 
 # setup the k3d cluster
