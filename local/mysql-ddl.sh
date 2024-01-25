@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 #
 # Copyright 2023, Seqera Labs
 #
@@ -15,17 +14,14 @@
 # limitations under the License.
 #
 #
-set -e
-source hosts.sh
-source settings.sh
 
-k3sup install --host $TOWER_APP_HOSTNAME --user ec2-user
-
-# define the current kubeconfig file
-export KUBECONFIG=$PWD/kubeconfig
-
-# create the target namespace
-kubectl create namespace $TOWER_NAMESPACE
-kubectl config set-context --current --namespace=$TOWER_NAMESPACE
-
-
+kubectl delete pod mysql-client &> /dev/null
+kubectl run -it --rm \
+  --image=mysql:latest \
+  --restart=Never \
+  mysql-client \
+  -- mysql -h mysql \
+    -u root \
+    -p$TOWER_DB_ADMIN_PASSWORD \
+    -e "$DDL"  \
+    && echo "Database schema configured successfully."

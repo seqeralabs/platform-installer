@@ -7,4 +7,5 @@ patchesStrategicMerge:
   - platformPatch.yaml
   - configPatch.yml
   - ingressPatch.yaml
+  - groundswellPatch.yaml
 ...

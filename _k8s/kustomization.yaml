@@ -5,4 +5,5 @@ resources:
   - config.yml
   - platform.yaml
   - ingress.yaml
+  - groundswell.yml
 ...

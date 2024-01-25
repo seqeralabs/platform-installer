@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: groundswell
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: migrate-db
+          envFrom:
+            - configMapRef:
+                name: groundswell-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+      containers:
+        - name: groundswell
+          envFrom:
+            - configMapRef:
+                name: groundswell-cfg
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+...

@@ -20,13 +20,6 @@ source settings.sh
 
 kubectl apply -n $TOWER_NAMESPACE -f <(cat k8s/infra.yml | envsubst)
 
-
-DDL="\
- ALTER DATABASE ${TOWER_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
- CREATE USER IF NOT EXISTS ${TOWER_DB_USER} IDENTIFIED BY '${TOWER_DB_PASSWORD}';\
- GRANT ALL PRIVILEGES ON ${TOWER_DB_USER}.* TO ${TOWER_DB_USER}@'%';\
- "
-
 is_pod_ready() {
     kubectl get pod "$1" 2>/dev/null | grep "1/1" | grep "Running" | grep "Terminating" -v
 }
@@ -40,13 +33,24 @@ wait_for() {
 
 wait_for 'mysql-0'
 
-kubectl delete pod mysql-client &> /dev/null
-kubectl run -it --rm \
-  --image=mysql:latest \
-  --restart=Never \
-  mysql-client \
-  -- mysql -h mysql \
-    -u root \
-    -p$TOWER_DB_ADMIN_PASSWORD \
-    -e "$DDL"  \
-    && echo "Database schema configured successfully."
+#
+# Create "tower" schema
+#
+export DDL="\
+ CREATE DATABASE IF NOT EXISTS ${TOWER_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
+ CREATE USER IF NOT EXISTS ${TOWER_DB_USER} IDENTIFIED BY '${TOWER_DB_PASSWORD}';\
+ GRANT ALL PRIVILEGES ON ${TOWER_DB_USER}.* TO ${TOWER_DB_USER}@'%';\
+ "
+
+bash ./mysql-ddl.sh
+
+#
+# Create "groundswell" schema
+#
+export DDL="\
+ CREATE DATABASE IF NOT EXISTS ${SWELL_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
+ CREATE USER IF NOT EXISTS ${SWELL_DB_USER} IDENTIFIED BY '${SWELL_DB_PASSWORD}';\
+ GRANT ALL PRIVILEGES ON ${SWELL_DB_USER}.* TO ${SWELL_DB_USER}@'%';\
+ "
+
+bash ./mysql-ddl.sh

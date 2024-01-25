@@ -16,20 +16,26 @@
 #
 source hosts.sh
 source settings.sh
+set -e
 
-DDL="\
- ALTER DATABASE ${TOWER_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
+#
+# Create "tower" schema
+#
+export DDL="\
+ CREATE DATABASE IF NOT EXISTS ${TOWER_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
  CREATE USER IF NOT EXISTS ${TOWER_DB_USER} IDENTIFIED BY '${TOWER_DB_PASSWORD}';\
  GRANT ALL PRIVILEGES ON ${TOWER_DB_USER}.* TO ${TOWER_DB_USER}@'%';\
  "
 
-kubectl delete pod mysql-client &> /dev/null
-kubectl run -it --rm \
-  --image=mysql:latest \
-  --restart=Never \
-  mysql-client \
-  -- mysql -h $TOWER_DB_HOSTNAME \
-    -u $TOWER_DB_ADMIN_USER \
-    -p$TOWER_DB_ADMIN_PASSWORD \
-    -e "$DDL"  \
-    && echo "Database schema configured successfully."
+bash ./mysql-ddl.sh
+
+#
+# Create "groundswell" schema
+#
+export DDL="\
+ CREATE DATABASE IF NOT EXISTS ${SWELL_DB_SCHEMA} CHARACTER SET utf8 COLLATE utf8_bin;\
+ CREATE USER IF NOT EXISTS ${SWELL_DB_USER} IDENTIFIED BY '${SWELL_DB_PASSWORD}';\
+ GRANT ALL PRIVILEGES ON ${SWELL_DB_USER}.* TO ${SWELL_DB_USER}@'%';\
+ "
+
+bash ./mysql-ddl.sh

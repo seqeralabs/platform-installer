@@ -1,0 +1,75 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: groundswell-cfg
+  labels:
+    app: groundswell-cfg
+    group: groundswell
+data:
+  SWELL_DB_DIALECT: "mysql"
+  SWELL_DB_USER: "${SWELL_DB_USER}"
+  SWELL_DB_PASSWORD: "${SWELL_DB_PASSWORD}"
+---
+# Deployments
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: groundswell
+  labels:
+    app: groundswell
+    group: groundswell
+spec:
+  selector:
+    matchLabels:
+      app: groundswell
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: groundswell
+    spec:
+      imagePullSecrets:
+        - name: reg-creds
+      initContainers:
+        - name: migrate-db
+          image: cr.seqera.io/private/nf-tower-enterprise/groundswell:0.3.3
+          command: ['/opt/groundswell/bin/migrate-db.sh']
+          envFrom:
+            - configMapRef:
+                name: groundswell-cfg
+      containers:
+        - name: groundswell
+          image: cr.seqera.io/private/nf-tower-enterprise/groundswell:0.3.3
+          envFrom:
+            - configMapRef:
+                name: groundswell-cfg
+            - configMapRef:
+                name: tower-backend-cfg
+          ports:
+            - containerPort: 8090
+          resources:
+            requests:
+              memory: "600Mi"
+            limits:
+              memory: "1200Mi"
+---
+# Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: groundswell
+  labels:
+    app: groundswell
+    group: groundswell
+spec:
+  ports:
+    - name: http
+      port: 8090
+      targetPort: 8090
+  selector:
+    app: groundswell
+...

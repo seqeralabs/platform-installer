@@ -29,5 +29,8 @@ kubectl create secret docker-registry reg-creds \
 ## Create K8s config map for Seqera platform
 kubectl apply -n $TOWER_NAMESPACE -l group=config -f <(kubectl kustomize ./k8s | envsubst)
 
-## Deploy the Seqera platform
+## Deploy the Seqera Platform
 kubectl apply -n $TOWER_NAMESPACE -l group=platform -f <(kubectl kustomize ./k8s  | envsubst)
+
+## Deploy the Seqera Groundswell
+kubectl apply -n $TOWER_NAMESPACE -l group=groundswell -f <(kubectl kustomize ./k8s  | envsubst)

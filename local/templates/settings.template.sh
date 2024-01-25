@@ -65,3 +65,9 @@ export SEQERA_CR_USER='<REPLACE WITH YOUR SEQERA CONTAINER REGISTRY USERNAME>'
 # NOTE: wrap the username in single quotes
 export SEQERA_CR_PASSWORD='<REPLACE WITH YOUR SEQERA CONTAINER REGISTRY PASSWORD>'
 
+# Groundswell config
+export SWELL_DB_SCHEMA=groundswell
+export SWELL_DB_USER=groundswell
+
+# Relational DB password used by Seqera Groundswell.
+export SWELL_DB_PASSWORD='<REPLACE WITH THE DB PASSWORD>'
