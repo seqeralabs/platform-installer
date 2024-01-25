@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 #
 # Copyright 2023, Seqera Labs
 #
@@ -15,10 +14,5 @@
 # limitations under the License.
 #
 #
-source settings.sh
 
-## patch TOWER_APP_HOSTNAME
-export TOWER_APP_HOSTNAME=localhost
-
-## Deploy the Seqera platform
-kubectl apply -n $TOWER_NAMESPACE -l group=ingress -f <(kubectl kustomize ./k8s | envsubst)
+kubectl delete all --all

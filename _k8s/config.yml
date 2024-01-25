@@ -3,9 +3,9 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: tower-backend-cfg
-  namespace: "${TOWER_NAMESPACE}"
   labels:
     app: backend-cfg
+    group: config
 data:
   TOWER_SERVER_URL: "${TOWER_SERVER_URL}"
   TOWER_CONTACT_EMAIL: "${TOWER_CONTACT_EMAIL}"
@@ -23,7 +23,6 @@ data:
   TOWER_ENABLE_PLATFORMS: "awsbatch-platform,gls-platform,googlebatch-platform,lsf-platform,slurm-platform,uge-platform,k8s-platform,eks-platform,gke-platform,azbatch-platform,altair-platform,moab-platform"
   TOWER_ENABLE_OPENAPI: "true"
   TOWER_ENABLE_ARM64: "true"
-  TOWER_ENABLE_AWS_SES: "true"
   TOWER_MONITORING_ENV: "prod"
   FLYWAY_LOCATIONS: "classpath:db-schema/mysql"
   JAVA_OPTS: "-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=1500M -Dslim.shaded.io.netty.tryReflectionSetAccessible=true -Dio.netty.tryReflectionSetAccessible=true"

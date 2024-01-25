@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  template:
+    spec:
+      containers:
+        - name: backend
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-mail-cfg
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cron
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: migrate-db
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-mail-cfg
+      containers:
+        - name: cron
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-mail-cfg
+          volumeMounts:
+            - name: tower-mail-cfg
+              mountPath: /tower.yml
+              subPath: "tower.yml"
+      volumes:
+        - name: tower-mail-cfg
+          configMap:
+            name: tower-mail-cfg
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: ClusterIP
+...

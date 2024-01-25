@@ -23,11 +23,11 @@
 export TOWER_NAMESPACE='seqera-platform'
 
 # The domain to be used to access the Seqera platform service e.g. "seqera-platform.company.com"
-export TOWER_DOMAIN_NAME='<PLATFORM DOMAIN NAME>'
+export TOWER_APP_HOSTNAME='<PLATFORM DOMAIN NAME>'
 
-# The HTTP URL to access the Seqera platform service. The hostname must match the variable `TOWER_DOMAIN_NAME`
+# The HTTP URL to access the Seqera platform service. The hostname must match the variable `TOWER_APP_HOSTNAME`
 # Do not include any ending slash character.
-export TOWER_SERVER_URL="https://${TOWER_DOMAIN_NAME}"
+export TOWER_SERVER_URL="https://${TOWER_APP_HOSTNAME}"
 
 # The email address that will be used as sender when delivering email notification by Seqera platform, e.g.
 # "seqera-platform@company.com"

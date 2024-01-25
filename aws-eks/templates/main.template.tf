@@ -1,7 +1,7 @@
 
 ## Module
 module "terraform-seqera-aws" {
-  source  = "github.com/seqeralabs/terraform-seqera-aws?ref=v0.7.0"
+  source  = "github.com/seqeralabs/terraform-seqera-aws?ref=v0.7.1"
   region  = "${AWS_REGION}"
   seqera_namespace_name = "${TOWER_NAMESPACE}"
 

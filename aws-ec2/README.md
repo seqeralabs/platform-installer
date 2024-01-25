@@ -23,7 +23,8 @@
 
 ### 1. AWS config profile
 
-Create an AWS configuration profile that it will be used to setup and deploy the EC2 instance where Seqera Platform will be installed.
+Create an AWS configuration profile that it will be used to setup and deploy the EC2 instance where Seqera Platform
+will be installed.
 
 ```
 aws --profile <PROFILE NAME> configure
@@ -52,7 +53,7 @@ following parameters:
 | --- | --- |
 | `AWS_REGION`      | The AWS region where the cluster will be deployed e.g. `eu-west-1`    |
 | `AWS_PROFILE`     | The AWS configuration profile used to setup and deploy the cluster e.g. `seqera-config` |
-| `TOWER_DOMAIN_NAME`   | The domain to be used to access the Seqera Platform service e.g. `platform.company.com` |
+| `TOWER_APP_HOSTNAME`   | The domain to be used to access the Seqera Platform service e.g. `platform.company.com` |
 | `TOWER_CONTACT_EMAIL` | The email address that will be used as sender when delivering email notification by Seqera Platform e.g. `support@company.com` |
 | `TOWER_DB_PASSWORD`   | The password for Seqera Platform relational database.
 | `TOWER_DB_ADMIN_PASSWORD`       | The admin password for Seqera Platform relational database.
@@ -143,10 +144,10 @@ Once all pod are in `Running` status you can connect to the Seqera Platform via 
 
 
 ```
-kubectl port-forward deployment/frontend 8080:80
+kubectl port-forward deployment/frontend 8000:80
 ```
 
-Then open your browser at the address http://localhost:8080, the Seqera Platform login page should be shown.
+Then open your browser at the address http://localhost:8000, the Seqera Platform login page should be shown.
 
 Try to login using an email address that was validated in the AWS SES console for cluster deployment region.
 
@@ -154,7 +155,7 @@ If you have not requested production access for the AWS SES service, the login e
 *spam* inbox.
 
 > [!Note]
-> The link in the sign-in email will only work if you have configured `localhost:8080` as the value for `TOWER_DOMAIN_NAME` in the `setting.sh` file.
+> The link in the sign-in email will only work if you have configured `localhost:8000` as the value for `TOWER_APP_HOSTNAME` in the `setting.sh` file.
 
 
 ### 5. Configure ingress controller

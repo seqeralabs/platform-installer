@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: tower-backend-cfg
+data:
+  TOWER_ENABLE_AWS_SES: "true"
+  TOWER_ENABLE_UNSAFE_MODE: "true"

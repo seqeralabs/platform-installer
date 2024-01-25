@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  template:
+    spec:
+      containers:
+        - name: backend
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cron
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: migrate-db
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+      containers:
+        - name: cron
+          envFrom:
+            - configMapRef:
+                name: tower-backend-cfg
+            - configMapRef:
+                name: tower-terraform-cfg
+            - secretRef:
+                name: tower-terraform-secrets
+...
