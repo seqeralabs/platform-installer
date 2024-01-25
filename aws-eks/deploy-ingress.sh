@@ -18,4 +18,4 @@
 
 source settings.sh
 ## Deploy the Seqera platform
-kubectl apply -n $TOWER_NAMESPACE -f <(cat k8s/ingress.yml | envsubst)
+kubectl apply -n $TOWER_NAMESPACE -l group=ingress -f <(kubectl kustomize ./k8s | envsubst)

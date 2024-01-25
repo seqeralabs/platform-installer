@@ -38,7 +38,7 @@ spec:
             - secretRef:
                 name: tower-terraform-secrets
       containers:
-        - name: backend
+        - name: cron
           resources:
             requests:
               cpu: "1"
