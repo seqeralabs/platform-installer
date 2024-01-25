@@ -163,10 +163,10 @@ Once all pod are in `Running` status you can connect to the Seqera Platform via 
 
 
 ```
-kubectl port-forward deployment/frontend 8080:80
+kubectl port-forward deployment/frontend 8000:80
 ```
 
-Then open your browser at the address http://localhost:8080, the Seqera Platform login page should be shown.
+Then open your browser at the address http://localhost:8000, the Seqera Platform login page should be shown.
 
 Try to login using an email address that was validated in the AWS SES console for cluster deployment region.
 
@@ -174,7 +174,7 @@ If you have not requested production access for the AWS SES service, the login e
 *spam* inbox.
 
 > [!Note]
-> The link in the sign-in email will only work if you have configured `localhost:8080` as the value for `TOWER_APP_HOSTNAME` in the `setting.sh` file.
+> The link in the sign-in email will only work if you have configured `localhost:8000` as the value for `TOWER_APP_HOSTNAME` in the `setting.sh` file.
 
 
 ### 5. Configure TLS termination and public facing
