@@ -18,7 +18,7 @@
 source hosts.sh
 source settings.sh
 
-k3sup install --host $TOWER_HOSTNAME --user ec2-user
+k3sup install --host $TOWER_APP_HOSTNAME --user ec2-user
 
 # define the current kubeconfig file
 export KUBECONFIG=$PWD/kubeconfig

@@ -16,3 +16,4 @@
 #
 
 kubectl delete all --all
+kubectl delete ingress tower-ingress
